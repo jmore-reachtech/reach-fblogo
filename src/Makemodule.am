@@ -1,0 +1,5 @@
+fblogo_SOURCES += \
+    src/main.c \
+    src/fblogo.c
+
+sbin_PROGRAMS += fblogo
