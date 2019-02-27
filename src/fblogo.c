@@ -21,12 +21,12 @@ struct fblogo_info *fblogo_fb_new()
     }
     
     if (ioctl(fbinfo->fd, FBIOGET_VSCREENINFO, &fb_var) == -1) {
-        perror ("Error getting variable framebuffer info");
+        fprintf(stderr, "Error getting variable framebuffer info \n");
         return NULL;
     }
     
     if (ioctl(fbinfo->fd, FBIOGET_FSCREENINFO, &fb_fix) == -1) {
-        perror ("Error getting fixed framebuffer info");
+        fprintf(stderr, "Error getting fixed framebuffer info \n");
         return NULL;
     }
     
@@ -39,7 +39,7 @@ struct fblogo_info *fblogo_fb_new()
     
     fbinfo->base = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fbinfo->fd, 0);
     if (fbinfo->base == MAP_FAILED) {
-        perror ("mmap failed \n");
+        fprintf(stderr, "mmap failed \n");
         return NULL;
     }
   

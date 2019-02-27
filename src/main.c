@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     bmp_file = fopen(path, "rb+");
   
     if (bmp_file == NULL) {
-        perror("bitmap open");
+        fprintf(stderr, "bitmap open \n");
         exit(-2);
     }
     
@@ -31,14 +31,16 @@ int main(int argc, char **argv)
     }
     
     fblogo_prepare_image(bmp_file, binfo);
-    
+
+    /*
     fprintf(stdout, "Image size %d \n", binfo->img_size);
     fprintf(stdout, "Image offset %d \n", binfo->img_offset);
     fprintf(stdout, "Image height %d \n", binfo->img_height);
     fprintf(stdout, "Image width %d \n", binfo->img_width);
     fprintf(stdout, "Image depth %d \n", binfo->img_depth);
     fprintf(stdout, "Image scanline %d \n", binfo->img_rowsize);
-    
+    */
+
     fblogo_draw_image(binfo);
     
     fblogo_fb_destroy(binfo);
