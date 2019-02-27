@@ -2,6 +2,15 @@
 #define PSPLASH_BMP_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <linux/fb.h>
 
 typedef struct {
     uint8_t     magic[2];   /* BM is all we support */
@@ -30,22 +39,29 @@ typedef struct {
                              generally ignored. */ 
 } BITMAPINFOHEADER;
 
-struct bmp_img_info {
-    uint32_t offset;
-    uint32_t width;
-    uint32_t height;
-    uint32_t depth;
-    uint32_t size;
-    uint8_t *data;
-    uint32_t rowsize;
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-    uint8_t alpha;
+struct fblogo_info {
+    int     fd;
+    char    *data;
+    char    *base;
+    int     fb_width;
+    int     fb_height;
+    int     fb_depth;
+    int     img_offset;
+    int     img_width;
+    int     img_height;
+    int     img_depth;
+    int     img_size;
+    int     img_rowsize;
+    int     img_red;
+    char    img_green;
+    char    img_blue;
+    char    img_alpha;
 };
 
-int fblogo_prepare_image(FILE *file, struct bmp_img_info *info);
-int fblogo_draw_color(char *fb, struct bmp_img_info *info, char r, char g, char b);
-int fblogo_draw_image(char *fb, struct bmp_img_info *info);
+int fblogo_prepare_image(FILE *file, struct fblogo_info *info);
+int fblogo_draw_color(struct fblogo_info *info, char r, char g, char b);
+int fblogo_draw_image(struct fblogo_info *info);
+struct fblogo_info *fblogo_fb_new(void);
+void fblogo_fb_destroy(struct fblogo_info *info);
 
 #endif
