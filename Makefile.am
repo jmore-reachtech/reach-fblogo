@@ -2,7 +2,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 AM_CPPFLAGS = -D_GNU_SOURCE -I$(top_srcdir)/include
 
-sbin_PROGRAMS =
+bin_PROGRAMS =
 lib_LIBRARIES =
 noinst_LIBRARIES =
 
